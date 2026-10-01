@@ -5,6 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LoginPage {
 
@@ -15,7 +19,7 @@ public class LoginPage {
         PageFactory.initElements(ldriver,this);
     }
 
-    @FindBy(xpath="//input[@name='uid']")
+    @FindBy(name="uid")
     @CacheLookup
     WebElement useName;
 
@@ -28,17 +32,22 @@ public class LoginPage {
     WebElement btnLogin;
 
     public void submitUserName(String txtUserName){
+        WebDriverWait wait = new WebDriverWait(ldriver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(useName));
         useName.clear();
         useName.sendKeys(txtUserName);
     }
 
     public void submitPassWord(String txtPassWord){
+        WebDriverWait wait = new WebDriverWait(ldriver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(passWord));
         passWord.clear();
         passWord.sendKeys(txtPassWord);
     }
 
     public void clickSubmitBtn(){
-
-        passWord.click();
+        WebDriverWait wait = new WebDriverWait(ldriver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(btnLogin));
+        btnLogin.click();
     }
 }
